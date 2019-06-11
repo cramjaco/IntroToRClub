@@ -1,0 +1,86 @@
+---
+title: "Introduction to R"
+output: html_notebook
+---
+
+# Notebooks
+
+This notebook is designed to serve as an introduction to R for Horn Point Laboratory scientists and visitors (and people who are both). If you are one of those people, welcome to R-Club. If not, feel free to use this notebook to get started with R or help other people get started with R. If you have managed to open this 
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. It acts kind of like a lab notebook for writing R code. You can write regular text, as I am doing here. You can also write R inside of "code blocks", see below.
+
+When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
+
+```{r}
+plot(cars)
+```
+
+Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Ctrl+Alt+I*.
+
+When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Ctrl+Shift+K* to preview the HTML file).
+
+The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike *Knit*, *Preview* does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.
+
+# Libraries
+R is a programming language and lots of people have written useful sets functions and programs that work in R. These sets of instructions are called libraries. One of my favorite libraries is the "tidyverse". Its actually a collection of other libraries, so its kind of a big library. It contains a library for graphing, called "ggplot" and one for cleaning up data, called "dplyr", and one for importing data called "readr". Lets bring it in. We do that like so:
+
+```{r}
+library("tidyverse")
+```
+
+You can see it tells you some stuff. It tells you what packages it loaded, including the ones I mentioned above. It also tells you "conflicts", which you can mostly ignore for now. It essentially says that when you call for instance "filter" it is taking the one from the dplyr (which is in the tidyverse) rather than the one in "stats". 
+
+# Loading data
+
+The first challenge that you will have with R, if you ever try to use it with your own data is how you get your data into R. In this folder I have included some example data. This file, called "miris.csv" is the iris data set, which is a very popular data set in R. You can acutally just use it by typing `iris`, but lets load it in as a variable called `miris`
+
+```{r}
+miris <- read_csv("data/miris.csv")
+```
+
+In the code above read_csv is a function from the tidyverse that reads in csv files. It takes an argument "data/miris" which is the "path", this tells it where to find the data. The arrow pointing to the word miris says to save that data into a variable called `miris`.
+
+You can look at `miris` by clicking on it in the global environment at the top right.
+
+## Now you try.
+There is another data set, called my_mtcars.csv in the data directory as well, in the code block below, load that data in
+
+```{r}
+# By the way, anthing that starts with a # sign inside of code blocks are not run.
+# Add your code here.
+
+```
+
+# Plotting data
+
+My favorite way of plotting out data is with a program called ggplot. The sintax is a bit odd, but its super useful. Here's a way to make a basic scatter plot from the miris data
+
+Ggplot works with this addition syntax
+
+```{r}
+ggplot(data = miris, aes(x =  Sepal.Width, y = Sepal.Length)) + geom_point()
+```
+
+
+Above, we tell ggplot which data set we are using `data = miris` the x and y variables with the `aes(x =  Sepal.Width, y = Sepal.Length).
+We then use the `+` sign
+and then we say that we want to plot points.
+
+We could also color code those points like so, now they are color coded by species.
+
+I also told ggplot to use triangles instead of dots. You can see the shape options and other ggplot options here:
+https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf
+
+```{r}
+ggplot(data = miris, aes(x =  Sepal.Width, y = Sepal.Length, colour = Species)) + geom_point(shape = 2)
+```
+
+## Now you try
+First create a new code block.
+First now see if you can make a plot of miris, where you compare Petal.Length to Petal.Width.
+Now expand the plot to use shape to tell which species things come from.
+See if you can use color to show what the sepal width is.
+
+Thats it for day one! Thanks for coming!
